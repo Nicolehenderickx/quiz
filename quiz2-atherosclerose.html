@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz 2 - Atherosclerose</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; line-height: 1.5; }
+    h1 { color: #004b6b; }
+    .question { margin-bottom: 15px; }
+    button { margin-top: 15px; padding: 8px 16px; }
+    #result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Quiz 2 – Atherosclerose</h1>
+
+  <form id="quiz2">
+    <div class="question">
+      <p>1. Wat is het eerste stadium van atherosclerose?</p>
+      <label><input type="radio" name="q1" value="B"> Beginnende vetophoping in de vaatwand</label><br>
+      <label><input type="radio" name="q1" value="A"> Instabiele plaquevorming</label><br>
+      <label><input type="radio" name="q1" value="C"> Volledige afsluiting van het bloedvat</label><br>
+      <label><input type="radio" name="q1" value="D"> Vorming van een trombus</label>
+    </div>
+
+    <div class="question">
+      <p>2. Wat maakt een plaque instabiel?</p>
+      <label><input type="radio" name="q2" value="B"> Een dunne vezelkap en veel ontstekingscellen</label><br>
+      <label><input type="radio" name="q2" value="A"> Een dikke vezelkap en weinig vet</label><br>
+      <label><input type="radio" name="q2" value="C"> Een gladde vaatwand zonder beschadiging</label><br>
+      <label><input type="radio" name="q2" value="D"> Een hoge HDL‑waarde</label>
+    </div>
+
+    <div class="question">
+      <p>3. Wat ontstaat er wanneer een plaque openbarst?</p>
+      <label><input type="radio" name="q3" value="C"> Een trombus</label><br>
+      <label><input type="radio" name="q3" value="A"> Een embolie</label><br>
+      <label><input type="radio" name="q3" value="B"> Een aneurysma</label><br>
+      <label><input type="radio" name="q3" value="D"> Een varice</label>
+    </div>
+
+    <div class="question">
+      <p>4. Wat is een embolie?</p>
+      <label><input type="radio" name="q4" value="B"> Een losgekomen stukje trombus dat vastloopt in een kleiner bloedvat</label><br>
+      <label><input type="radio" name="q4" value="A"> Een bloedprop die ter plaatse ontstaat</label><br>
+      <label><input type="radio" name="q4" value="C"> Een vernauwing door cholesterol</label><br>
+      <label><input type="radio" name="q4" value="D"> Een bloeding in de vaatwand</label>
+    </div>
+
+    <div class="question">
+      <p>5. Atherosclerose ontstaat plots en geeft snel symptomen.</p>
+      <label><input type="radio" name="q5" value="F"> Juist</label><br>
+      <label><input type="radio" name="q5" value="J"> Fout</label>
+    </div>
+
+    <div class="question">
+      <p>6. Arteriosclerose en atherosclerose betekenen exact hetzelfde.</p>
+      <label><input type="radio" name="q6" value="F"> Juist</label><br>
+      <label><input type="radio" name="q6" value="J"> Fout</label>
+    </div>
+
+    <button type="button" onclick="checkQuiz2()">Nakijken</button>
+    <div id="result"></div>
+  </form>
+
+  <script>
+    function checkQuiz2() {
+      const correct = {
+        q1: 'B',
+        q2: 'B',
+        q3: 'C',
+        q4: 'B',
+        q5: 'J',
+        q6: 'J'
+      };
+      let score = 0;
+      let total = Object.keys(correct).length;
+
+      for (let q in correct) {
+        const answer = document.querySelector('input[name="' + q + '"]:checked');
+        if (answer && answer.value === correct[q]) {
+          score++;
+        }
+      }
+
+      document.getElementById('result').textContent =
+        'Je score: ' + score + ' / ' + total;
+    }
+  </script>
+</body>
+</html>

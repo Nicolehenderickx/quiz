@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz 4 - Herseninfarct en TIA</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; line-height: 1.5; }
+    h1 { color: #004b6b; }
+    .question { margin-bottom: 15px; }
+    button { margin-top: 15px; padding: 8px 16px; }
+    #result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Quiz 4 – Herseninfarct en TIA</h1>
+
+  <form id="quiz4">
+    <div class="question">
+      <p>1. Wat is een TIA volgens de cursus?</p>
+      <label><input type="radio" name="q1" value="B"> Een kortdurend herseninfarct waarbij symptomen verdwijnen binnen 24 uur</label><br>
+      <label><input type="radio" name="q1" value="A"> Een kleine hersenbloeding</label><br>
+      <label><input type="radio" name="q1" value="C"> Een migraine‑aanval met uitval</label><br>
+      <label><input type="radio" name="q1" value="D"> Een infectie van de hersenvliezen</label>
+    </div>
+
+    <div class="question">
+      <p>2. Wat is een typisch symptoom van een herseninfarct?</p>
+      <label><input type="radio" name="q2" value="B"> Plots krachtverlies of gevoelsstoornissen</label><br>
+      <label><input type="radio" name="q2" value="A"> Koorts en stijve nek</label><br>
+      <label><input type="radio" name="q2" value="C"> Langzaam toenemende hoofdpijn</label><br>
+      <label><input type="radio" name="q2" value="D"> Tintelingen in de vingers na inspanning</label>
+    </div>
+
+    <div class="question">
+      <p>3. Wat is een FAST‑signaal?</p>
+      <label><input type="radio" name="q3" value="A"> Face, Arm, Speech</label><br>
+      <label><input type="radio" name="q3" value="B"> Feet, Appetite, Sleep</label><br>
+      <label><input type="radio" name="q3" value="C"> Face, Anxiety, Stress</label><br>
+      <label><input type="radio" name="q3" value="D"> Fingers, Arms, Shoulders</label>
+    </div>
+
+    <div class="question">
+      <p>4. Wat is een mogelijke oorzaak van een herseninfarct?</p>
+      <label><input type="radio" name="q4" value="B"> Een embolie vanuit de halsslagader</label><br>
+      <label><input type="radio" name="q4" value="A"> Een tekort aan vitamine D</label><br>
+      <label><input type="radio" name="q4" value="C"> Een infectie van de hersenvliezen</label><br>
+      <label><input type="radio" name="q4" value="D"> Een tekort aan glucose</label>
+    </div>
+
+    <div class="question">
+      <p>5. Een herseninfarct is hetzelfde als een hersenbloeding.</p>
+      <label><input type="radio" name="q5" value="F"> Juist</label><br>
+      <label><input type="radio" name="q5" value="J"> Fout</label>
+    </div>
+
+    <div class="question">
+      <p>6. Bij een herseninfarct moet je onmiddellijk 112 bellen.</p>
+      <label><input type="radio" name="q6" value="J"> Juist</label><br>
+      <label><input type="radio" name="q6" value="F"> Fout</label>
+    </div>
+
+    <button type="button" onclick="checkQuiz4()">Nakijken</button>
+    <div id="result"></div>
+  </form>
+
+  <script>
+    function checkQuiz4() {
+      const correct = {
+        q1: 'B',
+        q2: 'B',
+        q3: 'A',
+        q4: 'B',
+        q5: 'J',
+        q6: 'J'
+      };
+      let score = 0;
+      let total = Object.keys(correct).length;
+
+      for (let q in correct) {
+        const answer = document.querySelector('input[name="' + q + '"]:checked');
+        if (answer && answer.value === correct[q]) {
+          score++;
+        }
+      }
+
+      document.getElementById('result').textContent =
+        'Je score: ' + score + ' / ' + total;
+    }
+  </script>
+</body>
+</html>

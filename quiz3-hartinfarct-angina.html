@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <title>Quiz 3 - Hartinfarct en Angina Pectoris</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; line-height: 1.5; }
+    h1 { color: #004b6b; }
+    .question { margin-bottom: 15px; }
+    button { margin-top: 15px; padding: 8px 16px; }
+    #result { margin-top: 15px; font-weight: bold; }
+  </style>
+</head>
+<body>
+  <h1>Quiz 3 – Hartinfarct en Angina Pectoris</h1>
+
+  <form id="quiz3">
+    <div class="question">
+      <p>1. Wat is het belangrijkste verschil tussen angina pectoris en een hartinfarct?</p>
+      <label><input type="radio" name="q1" value="C"> Angina pectoris verdwijnt bij rust, een hartinfarct niet</label><br>
+      <label><input type="radio" name="q1" value="A"> Angina pectoris ontstaat door stress, een infarct door inspanning</label><br>
+      <label><input type="radio" name="q1" value="B"> Angina pectoris geeft geen pijn, een infarct wel</label><br>
+      <label><input type="radio" name="q1" value="D"> Angina pectoris komt alleen bij vrouwen voor</label>
+    </div>
+
+    <div class="question">
+      <p>2. Wat gebeurt er bij een hartinfarct?</p>
+      <label><input type="radio" name="q2" value="B"> Een deel van de hartspier sterft af door zuurstoftekort</label><br>
+      <label><input type="radio" name="q2" value="A"> De hartspier krijgt tijdelijk minder bloed</label><br>
+      <label><input type="radio" name="q2" value="C"> De hartslag versnelt maar er is geen schade</label><br>
+      <label><input type="radio" name="q2" value="D"> De kransslagaders worden tijdelijk wijder</label>
+    </div>
+
+    <div class="question">
+      <p>3. Welke situatie vraagt onmiddellijke 112‑hulp bij angina pectoris?</p>
+      <label><input type="radio" name="q3" value="B"> Pijn die langer dan 5 minuten aanhoudt</label><br>
+      <label><input type="radio" name="q3" value="A"> Pijn die binnen 2 minuten verdwijnt</label><br>
+      <label><input type="radio" name="q3" value="C"> Pijn die alleen optreedt bij koude</label><br>
+      <label><input type="radio" name="q3" value="D"> Pijn die vermindert na medicatie</label>
+    </div>
+
+    <div class="question">
+      <p>4. Wat is een mogelijke oorzaak van angina pectoris?</p>
+      <label><input type="radio" name="q4" value="B"> Een bijna volledig dichtgeslibde kransslagader</label><br>
+      <label><input type="radio" name="q4" value="A"> Een infectie van de hartkleppen</label><br>
+      <label><input type="radio" name="q4" value="C"> Een probleem in de longblaasjes</label><br>
+      <label><input type="radio" name="q4" value="D"> Een tekort aan rode bloedcellen</label>
+    </div>
+
+    <div class="question">
+      <p>5. De pijn bij angina pectoris kan uitstralen naar armen, kaak of maagstreek.</p>
+      <label><input type="radio" name="q5" value="J"> Juist</label><br>
+      <label><input type="radio" name="q5" value="F"> Fout</label>
+    </div>
+
+    <div class="question">
+      <p>6. Een hartinfarct kan ontstaan door een embolie in een kransslagader.</p>
+      <label><input type="radio" name="q6" value="J"> Juist</label><br>
+      <label><input type="radio" name="q6" value="F"> Fout</label>
+    </div>
+
+    <button type="button" onclick="checkQuiz3()">Nakijken</button>
+    <div id="result"></div>
+  </form>
+
+  <script>
+    function checkQuiz3() {
+      const correct = {
+        q1: 'C',
+        q2: 'B',
+        q3: 'B',
+        q4: 'B',
+        q5: 'J',
+        q6: 'J'
+      };
+      let score = 0;
+      let total = Object.keys(correct).length;
+
+      for (let q in correct) {
+        const answer = document.querySelector('input[name="' + q + '"]:checked');
+        if (answer && answer.value === correct[q]) {
+          score++;
+        }
+      }
+
+      document.getElementById('result').textContent =
+        'Je score: ' + score + ' / ' + total;
+    }
+  </script>
+</body>
+</html>
