@@ -18,24 +18,24 @@
   <form id="quiz2">
     <div class="question">
       <p>1. Wat is het eerste stadium van atherosclerose?</p>
-      <label><input type="radio" name="q1" value="B"> Beginnende vetophoping in de vaatwand</label><br>
       <label><input type="radio" name="q1" value="A"> Instabiele plaquevorming</label><br>
       <label><input type="radio" name="q1" value="C"> Volledige afsluiting van het bloedvat</label><br>
+      <label><input type="radio" name="q1" value="B"> Beginnende vetophoping in de vaatwand</label><br>
       <label><input type="radio" name="q1" value="D"> Vorming van een trombus</label>
     </div>
 
     <div class="question">
       <p>2. Wat maakt een plaque instabiel?</p>
-      <label><input type="radio" name="q2" value="B"> Een dunne vezelkap en veel ontstekingscellen</label><br>
       <label><input type="radio" name="q2" value="A"> Een dikke vezelkap en weinig vet</label><br>
+      <label><input type="radio" name="q2" value="B"> Een dunne vezelkap en veel ontstekingscellen</label><br>
       <label><input type="radio" name="q2" value="C"> Een gladde vaatwand zonder beschadiging</label><br>
       <label><input type="radio" name="q2" value="D"> Een hoge HDL‑waarde</label>
     </div>
 
     <div class="question">
       <p>3. Wat ontstaat er wanneer een plaque openbarst?</p>
-      <label><input type="radio" name="q3" value="C"> Een trombus</label><br>
       <label><input type="radio" name="q3" value="A"> Een embolie</label><br>
+      <label><input type="radio" name="q3" value="C"> Een trombus</label><br>
       <label><input type="radio" name="q3" value="B"> Een aneurysma</label><br>
       <label><input type="radio" name="q3" value="D"> Een varice</label>
     </div>
@@ -50,14 +50,14 @@
 
     <div class="question">
       <p>5. Atherosclerose ontstaat plots en geeft snel symptomen.</p>
-      <label><input type="radio" name="q5" value="F"> Juist</label><br>
-      <label><input type="radio" name="q5" value="J"> Fout</label>
+      <label><input type="radio" name="q5" value="J"> Juist</label><br>
+      <label><input type="radio" name="q5" value="F"> Fout</label>
     </div>
 
     <div class="question">
       <p>6. Arteriosclerose en atherosclerose betekenen exact hetzelfde.</p>
-      <label><input type="radio" name="q6" value="F"> Juist</label><br>
-      <label><input type="radio" name="q6" value="J"> Fout</label>
+      <label><input type="radio" name="q6" value="J"> Juist</label><br>
+      <label><input type="radio" name="q6" value="F"> Fout</label>
     </div>
 
     <button type="button" id="submitBtn" onclick="checkQuiz2()">Nakijken</button>
@@ -99,8 +99,8 @@
         q2: 'B',
         q3: 'C',
         q4: 'B',
-        q5: 'J',
-        q6: 'J'
+        q5: 'F',
+        q6: 'F'
       };
 
       let score = 0;
@@ -118,4 +118,9 @@
       const resultDiv = document.getElementById('result');
       resultDiv.innerHTML =
         'Je score: ' + score + ' / ' + total + '<br>' +
-        '<span class="locked-note">Toets ingediend. Je kan niets meer aanpassen. Maak een screenshot van dit scherm als bewijs
+        '<span class="locked-note">Toets ingediend. Je kan niets meer aanpassen. Maak een screenshot van dit scherm als bewijs.</span>';
+    }
+
+  </script>
+</body>
+</html>
