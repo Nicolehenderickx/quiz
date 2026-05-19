@@ -2,17 +2,18 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <title>Quiz 5 - Perifeer arterieel vaatlijden</title>
+  <title>Quiz 5 - Perifeer Arterieel Vaatlijden (PAV)</title>
   <style>
     body { font-family: Arial, sans-serif; max-width: 800px; margin: 20px auto; line-height: 1.5; }
     h1 { color: #004b6b; }
     .question { margin-bottom: 15px; }
     button { margin-top: 15px; padding: 8px 16px; }
-    #result { margin-top: 15px; font-weight: bold; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 1.1rem; }
+    .locked-note { color: #b00000; margin-top: 10px; }
   </style>
 </head>
-<body>
-  <h1>Quiz 5 – Perifeer arterieel vaatlijden (PAV)</h1>
+<body onload="initQuiz5()">
+  <h1>Quiz 5 – Perifeer Arterieel Vaatlijden (PAV)</h1>
 
   <form id="quiz5">
     <div class="question">
@@ -59,12 +60,40 @@
       <label><input type="radio" name="q6" value="F"> Fout</label>
     </div>
 
-    <button type="button" onclick="checkQuiz5()">Nakijken</button>
+    <button type="button" id="submitBtn" onclick="checkQuiz5()">Nakijken</button>
     <div id="result"></div>
   </form>
 
   <script>
+    const QUIZ5_DONE = 'quiz5_done';
+    const QUIZ5_SCORE = 'quiz5_score';
+
+    function lockQuiz5() {
+      const inputs = document.querySelectorAll('#quiz5 input[type="radio"]');
+      inputs.forEach(i => i.disabled = true);
+
+      const btn = document.getElementById('submitBtn');
+      if (btn) btn.style.display = 'none';
+    }
+
+    function initQuiz5() {
+      const done = localStorage.getItem(QUIZ5_DONE);
+      const resultDiv = document.getElementById('result');
+      const total = 6;
+
+      if (done === 'true') {
+        const storedScore = localStorage.getItem(QUIZ5_SCORE);
+        lockQuiz5();
+        resultDiv.innerHTML =
+          'Toets al ingediend.<br>' +
+          'Je eerdere score: ' + storedScore + ' / ' + total + '<br>' +
+          '<span class="locked-note">Je kan deze toets niet opnieuw maken. Maak een screenshot van dit scherm als bewijs.</span>';
+      }
+    }
+
     function checkQuiz5() {
+      if (localStorage.getItem(QUIZ5_DONE) === 'true') return;
+
       const correct = {
         q1: 'B',
         q2: 'B',
@@ -73,18 +102,23 @@
         q5: 'J',
         q6: 'J'
       };
+
       let score = 0;
       let total = Object.keys(correct).length;
 
       for (let q in correct) {
         const answer = document.querySelector('input[name="' + q + '"]:checked');
-        if (answer && answer.value === correct[q]) {
-          score++;
-        }
+        if (answer && answer.value === correct[q]) score++;
       }
 
-      document.getElementById('result').textContent =
-        'Je score: ' + score + ' / ' + total;
+      localStorage.setItem(QUIZ5_DONE, 'true');
+      localStorage.setItem(QUIZ5_SCORE, score.toString());
+      lockQuiz5();
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML =
+        'Je score: ' + score + ' / ' + total + '<br>' +
+        '<span class="locked-note">Toets ingediend. Je kan niets meer aanpassen. Maak een screenshot van dit scherm als bewijs.</span>';
     }
   </script>
 </body>
