@@ -8,10 +8,11 @@
     h1 { color: #004b6b; }
     .question { margin-bottom: 15px; }
     button { margin-top: 15px; padding: 8px 16px; }
-    #result { margin-top: 15px; font-weight: bold; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 1.1rem; }
+    .locked-note { color: #b00000; margin-top: 10px; }
   </style>
 </head>
-<body>
+<body onload="initQuiz4()">
   <h1>Quiz 4 – Herseninfarct en TIA</h1>
 
   <form id="quiz4">
@@ -59,12 +60,40 @@
       <label><input type="radio" name="q6" value="F"> Fout</label>
     </div>
 
-    <button type="button" onclick="checkQuiz4()">Nakijken</button>
+    <button type="button" id="submitBtn" onclick="checkQuiz4()">Nakijken</button>
     <div id="result"></div>
   </form>
 
   <script>
+    const QUIZ4_DONE = 'quiz4_done';
+    const QUIZ4_SCORE = 'quiz4_score';
+
+    function lockQuiz4() {
+      const inputs = document.querySelectorAll('#quiz4 input[type="radio"]');
+      inputs.forEach(i => i.disabled = true);
+
+      const btn = document.getElementById('submitBtn');
+      if (btn) btn.style.display = 'none';
+    }
+
+    function initQuiz4() {
+      const done = localStorage.getItem(QUIZ4_DONE);
+      const resultDiv = document.getElementById('result');
+      const total = 6;
+
+      if (done === 'true') {
+        const storedScore = localStorage.getItem(QUIZ4_SCORE);
+        lockQuiz4();
+        resultDiv.innerHTML =
+          'Toets al ingediend.<br>' +
+          'Je eerdere score: ' + storedScore + ' / ' + total + '<br>' +
+          '<span class="locked-note">Je kan deze toets niet opnieuw maken. Maak een screenshot van dit scherm als bewijs.</span>';
+      }
+    }
+
     function checkQuiz4() {
+      if (localStorage.getItem(QUIZ4_DONE) === 'true') return;
+
       const correct = {
         q1: 'B',
         q2: 'B',
@@ -73,18 +102,23 @@
         q5: 'J',
         q6: 'J'
       };
+
       let score = 0;
       let total = Object.keys(correct).length;
 
       for (let q in correct) {
         const answer = document.querySelector('input[name="' + q + '"]:checked');
-        if (answer && answer.value === correct[q]) {
-          score++;
-        }
+        if (answer && answer.value === correct[q]) score++;
       }
 
-      document.getElementById('result').textContent =
-        'Je score: ' + score + ' / ' + total;
+      localStorage.setItem(QUIZ4_DONE, 'true');
+      localStorage.setItem(QUIZ4_SCORE, score.toString());
+      lockQuiz4();
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML =
+        'Je score: ' + score + ' / ' + total + '<br>' +
+        '<span class="locked-note">Toets ingediend. Je kan niets meer aanpassen. Maak een screenshot van dit scherm als bewijs.</span>';
     }
   </script>
 </body>
