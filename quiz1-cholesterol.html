@@ -8,10 +8,11 @@
     h1 { color: #004b6b; }
     .question { margin-bottom: 15px; }
     button { margin-top: 15px; padding: 8px 16px; }
-    #result { margin-top: 15px; font-weight: bold; }
+    #result { margin-top: 20px; font-weight: bold; font-size: 1.1rem; }
+    .locked-note { color: #b00000; margin-top: 10px; }
   </style>
 </head>
-<body>
+<body onload="initQuiz1()">
   <h1>Quiz 1 – Cholesterol</h1>
 
   <form id="quiz1">
@@ -59,12 +60,43 @@
       <label><input type="radio" name="q6" value="F"> Fout</label>
     </div>
 
-    <button type="button" onclick="checkQuiz1()">Nakijken</button>
+    <button type="button" id="submitBtn" onclick="checkQuiz1()">Nakijken</button>
     <div id="result"></div>
   </form>
 
   <script>
+    const QUIZ_KEY_DONE = 'quiz1_done';
+    const QUIZ_KEY_SCORE = 'quiz1_score';
+
+    function lockQuiz1() {
+      const inputs = document.querySelectorAll('#quiz1 input[type="radio"]');
+      inputs.forEach(input => input.disabled = true);
+
+      const btn = document.getElementById('submitBtn');
+      if (btn) btn.style.display = 'none';
+    }
+
+    function initQuiz1() {
+      const done = localStorage.getItem(QUIZ_KEY_DONE);
+      const resultDiv = document.getElementById('result');
+      const total = 6;
+
+      if (done === 'true') {
+        const storedScore = localStorage.getItem(QUIZ_KEY_SCORE);
+        lockQuiz1();
+        resultDiv.innerHTML =
+          'Toets al ingediend.<br>' +
+          'Je eerdere score: ' + storedScore + ' / ' + total + '<br>' +
+          '<span class="locked-note">Je kan deze toets niet opnieuw maken. Maak een screenshot van dit scherm als bewijs.</span>';
+      }
+    }
+
     function checkQuiz1() {
+      // Als al ingediend, niets meer doen
+      if (localStorage.getItem(QUIZ_KEY_DONE) === 'true') {
+        return;
+      }
+
       const correct = {
         q1: 'B',
         q2: 'B',
@@ -73,6 +105,7 @@
         q5: 'J',
         q6: 'F'
       };
+
       let score = 0;
       let total = Object.keys(correct).length;
 
@@ -83,8 +116,15 @@
         }
       }
 
-      document.getElementById('result').textContent =
-        'Je score: ' + score + ' / ' + total;
+      // Vergrendelen en opslaan
+      localStorage.setItem(QUIZ_KEY_DONE, 'true');
+      localStorage.setItem(QUIZ_KEY_SCORE, score.toString());
+      lockQuiz1();
+
+      const resultDiv = document.getElementById('result');
+      resultDiv.innerHTML =
+        'Je score: ' + score + ' / ' + total + '<br>' +
+        '<span class="locked-note">Toets ingediend. Je kan niets meer aanpassen. Maak een screenshot van dit scherm als bewijs.</span>';
     }
   </script>
 </body>
